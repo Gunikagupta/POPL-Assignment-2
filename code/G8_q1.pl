@@ -27,3 +27,6 @@ clue(4, Solution) :-
     member(p('Ben', Dept, _, Project), Solution),
     Project == web,
     Dept \== testing.            
+clue(5, Solution) :-
+    member(p(_, Dept, java, _), Solution),
+    Dept == design.
