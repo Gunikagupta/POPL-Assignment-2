@@ -1,5 +1,9 @@
 #lang racket/base
 
+; Run this file with:
+; racket code/G39_q3.rkt
+; It should produce no output because this file contains definitions only.
+
 
 (define (height tree)
   (if (null? tree)
@@ -79,3 +83,4 @@
 (define (print-height-and-leaves tree)
   (display (list (height tree) (leaf-count tree)))
   (newline))
+
