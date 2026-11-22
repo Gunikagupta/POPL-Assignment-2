@@ -13,6 +13,10 @@ solution([p('Alex',  D1, L1, P1),
     permutation([python, java, 'c++', javascript],         [L1, L2, L3, L4]),
     permutation(['AI', web, embedded, data],               [P1, P2, P3, P4]).
 clue(1, Solution) :-
-     member(p(Name, Dept, _, 'AI'), Solution),
-     Name \== 'Dana',
-     Dept \== research.
+    member(p(Name, Dept, _, 'AI'), Solution),
+    Name \== 'Dana',
+    Dept \== research.
+clue(2, Solution) :-
+    member(p('Alex', Dept, Lang, _), Solution),
+    Dept \== development,
+    Lang \== 'c++'.    
