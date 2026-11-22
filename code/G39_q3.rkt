@@ -63,3 +63,7 @@
                            (walk (car (cdr (cdr tree))) with-left)))
                       (cons (car tree) with-right)))))))
     (reverse-list (walk tree '()))))
+
+(define (print-inorder tree)
+  (display (inorder tree))
+  (newline))
