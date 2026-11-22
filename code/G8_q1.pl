@@ -30,3 +30,7 @@ clue(4, Solution) :-
 clue(5, Solution) :-
     member(p(_, Dept, java, _), Solution),
     Dept == design.
+clue(6, Solution) :-
+    member(p('Carla', Dept, _, Project), Solution),
+    Project \== embedded,
+    Dept \== development.
