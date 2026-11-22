@@ -52,3 +52,9 @@ main :-
     once(( solution(Solution),
            holds_all([1, 2, 3, 4, 5, 6, 7, 8], Solution) )),
     forall(member(Person, Solution), print_friend(Person)).  
+count_solutions(Active, N) :-
+    findall(Solution,
+            ( solution(Solution),
+              holds_all(Active, Solution) ),
+            Solutions),
+    length(Solutions, N).
