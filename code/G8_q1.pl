@@ -22,4 +22,8 @@ clue(2, Solution) :-
     Lang \== 'c++'.
 clue(3, Solution) :-
     member(p(_, testing, Lang, _), Solution),
-    Lang == python.        
+    Lang == python.
+clue(4, Solution) :-
+    member(p('Ben', Dept, _, Project), Solution),
+    Project == web,
+    Dept \== testing.            
