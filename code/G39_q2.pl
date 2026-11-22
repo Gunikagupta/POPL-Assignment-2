@@ -119,3 +119,17 @@ needs_parens(e(Op, _, _), left, ParentPrec) :-
 needs_parens(e(Op, _, _), right, ParentPrec) :-
     prec(Op, P),
     P =< ParentPrec.
+% equation(+List, -Str)
+% Declaratively: Str is the canonical string "L=R" of an equation for List,
+% where List splits (at some point j with 1 =< j < k) into a non-empty
+% Left part and a non-empty Right part, L is an expression tree over
+% Left with value VL, R is an expression tree over Right with value VR,
+% and VL equals VR.
+% Fails for lists of length 0 or 1, because they have no valid split.
+equation(List, Str) :-
+    split_list(List, Left, Right),
+    expr_val(Left, LTree, Value),
+    expr_val(Right, RTree, Value),
+    fmt(LTree, LStr),
+    fmt(RTree, RStr),
+    format(string(Str), "~w=~w", [LStr, RStr]).
