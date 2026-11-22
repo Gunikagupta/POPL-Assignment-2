@@ -41,7 +41,11 @@ clue(7, Solution) :-
 clue(8, Solution) :-
     member(p(_, Dept, Lang, data), Solution),
     Dept == research,
-    Lang \== javascript.  
+    Lang \== javascript. 
+% CLUE 9: The friend who prefers the embedded project works in the design department.
+clue(9, Solution) :-
+    member(p(_, Dept, _, embedded), Solution),
+    Dept == design. 
 holds_all(Active, Solution) :-
     forall(member(N, Active), clue(N, Solution)).
 
