@@ -17,3 +17,24 @@
           1
           (+ (leaf-count (car (cdr tree)))
              (leaf-count (car (cdr (cdr tree))))))))
+
+(define (reverse-list xs)
+  (letrec ((rev
+            (lambda (xs acc)
+              (if (null? xs)
+                  acc
+                  (rev (cdr xs)
+                       (cons (car xs) acc))))))
+    (rev xs '())))
+
+(define (inorder tree)
+  (letrec ((walk
+            (lambda (tree acc)
+              (if (null? tree)
+                  acc
+                  (let ((left-result
+                         (walk (car (cdr tree)) acc)))
+                    (let ((with-root
+                           (cons (car tree) left-result)))
+                      (walk (car (cdr (cdr tree))) with-root)))))))
+    (reverse-list (walk tree '()))))
