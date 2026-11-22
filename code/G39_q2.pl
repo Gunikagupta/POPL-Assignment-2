@@ -52,3 +52,22 @@ arith_op(+).
 arith_op(-).
 arith_op(*).
 arith_op(/).
+
+% expr_val(+List, -Tree, -Value)
+% Declaratively: Tree is an expression tree over the non-empty list List
+% whose evaluation is defined (every division exact, divisor non-zero)
+% and equals Value.
+% Base case: a one-element list [N] has the leaf N, with value N.
+% Recursive case: a list with at least two elements has the tree
+% e(Op, L, R) and value V if List splits into non-empty Left and Right,
+% L (value VL) is a tree over Left, R (value VR) is a tree over Right,
+% and applying Op to VL and VR is defined and gives V.
+% The value is computed while the tree is built, so a bad division
+% fails at once and its subtree is never extended further.
+expr_val([N], N, N).
+expr_val([A, B|T], e(Op, L, R), V) :-
+    split_list([A, B|T], Left, Right),
+    expr_val(Left, L, VL),
+    expr_val(Right, R, VR),
+    arith_op(Op),
+    apply_op(Op, VL, VR, V).
