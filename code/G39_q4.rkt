@@ -51,3 +51,13 @@
 ;; Declaratively: make-inserter with the test "length < n", applied to lst.
 (define (insert-if-short x lst n)
   ((make-inserter x (lambda (len) (< len n))) lst))
+
+;; (print-insert-result) -> prints
+;; Reads x, lst and n (in that order) with read, displays the result, then a newline.
+;; let* guarantees the three reads happen in order.
+(define (print-insert-result)
+  (let* ((x (read))
+         (lst (read))
+         (n (read)))
+    (display (insert-if-short x lst n))
+    (newline)))
