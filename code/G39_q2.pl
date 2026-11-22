@@ -133,3 +133,11 @@ equation(List, Str) :-
     fmt(LTree, LStr),
     fmt(RTree, RStr),
     format(string(Str), "~w=~w", [LStr, RStr]).
+% generate_equation(+List, -Equation)
+% Declaratively: Equation is one valid equation string for List, that is,
+% some solution of equation/2.
+% Fails (no error, no loop) if List has length 0 or 1, or if no valid
+% equation exists.
+% once/1 keeps only the first solution, so no choice point is left behind.
+generate_equation(List, Equation) :-
+    once(equation(List, Equation)).
