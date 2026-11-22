@@ -41,4 +41,14 @@ clue(7, Solution) :-
 clue(8, Solution) :-
     member(p(_, Dept, Lang, data), Solution),
     Dept == research,
-    Lang \== javascript.    
+    Lang \== javascript.  
+holds_all(Active, Solution) :-
+    forall(member(N, Active), clue(N, Solution)).
+
+print_friend(p(Name, Dept, Lang, Project)) :-
+    format("~w = [~w, ~w, ~w]~n", [Name, Dept, Lang, Project]).
+
+main :-
+    once(( solution(Solution),
+           holds_all([1, 2, 3, 4, 5, 6, 7, 8], Solution) )),
+    forall(member(Person, Solution), print_friend(Person)).  
