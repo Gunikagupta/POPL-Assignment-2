@@ -50,3 +50,16 @@
                            (walk (car (cdr tree)) with-root)))
                       (walk (car (cdr (cdr tree))) with-left)))))))
     (reverse-list (walk tree '()))))
+
+
+(define (postorder tree)
+  (letrec ((walk
+            (lambda (tree acc)
+              (if (null? tree)
+                  acc
+                  (let ((with-left
+                         (walk (car (cdr tree)) acc)))
+                    (let ((with-right
+                           (walk (car (cdr (cdr tree))) with-left)))
+                      (cons (car tree) with-right)))))))
+    (reverse-list (walk tree '()))))
