@@ -141,3 +141,17 @@ equation(List, Str) :-
 % once/1 keeps only the first solution, so no choice point is left behind.
 generate_equation(List, Equation) :-
     once(equation(List, Equation)).
+% all_equations(+List, -Equations)
+% Declaratively: Equations is the list of all valid equation strings for
+% List, without duplicates, in standard order of terms (sort/2).
+% It is [] if List has no valid equation, including lists of length 0 or 1.
+all_equations(List, Equations) :-
+    findall(Str, equation(List, Str), All),
+    sort(All, Equations).
+
+% count_equations(+List, -N)
+% Declaratively: N is the number of valid equations for List, i.e. the
+% length of the list given by all_equations/2.
+count_equations(List, N) :-
+    all_equations(List, Equations),
+    length(Equations, N).
