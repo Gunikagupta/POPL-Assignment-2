@@ -38,3 +38,15 @@
                            (cons (car tree) left-result)))
                       (walk (car (cdr (cdr tree))) with-root)))))))
     (reverse-list (walk tree '()))))
+
+(define (preorder tree)
+  (letrec ((walk
+            (lambda (tree acc)
+              (if (null? tree)
+                  acc
+                  (let ((with-root
+                         (cons (car tree) acc)))
+                    (let ((with-left
+                           (walk (car (cdr tree)) with-root)))
+                      (walk (car (cdr (cdr tree))) with-left)))))))
+    (reverse-list (walk tree '()))))
