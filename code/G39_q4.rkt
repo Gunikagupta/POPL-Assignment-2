@@ -28,3 +28,18 @@
     (if (null? rest)
         (my-reverse acc)
         (loop (cdr rest) (cons (f (car rest)) acc)))))
+
+;; (insert-if-short x lst n) -> list
+;; Declaratively: lst with every sublist (at any depth) processed the same way,
+;; and x put at the front if lst's ORIGINAL length is < n.
+;; An element is a list when it is a pair or '(); otherwise it is an atom and is kept.
+(define (insert-if-short x lst n)
+  (let ((processed
+         (my-map (lambda (e)
+                   (if (or (pair? e) (null? e))
+                       (insert-if-short x e n)
+                       e))
+                 lst)))
+    (if (< (my-length lst) n)
+        (cons x processed)
+        processed)))
