@@ -19,4 +19,7 @@ clue(1, Solution) :-
 clue(2, Solution) :-
     member(p('Alex', Dept, Lang, _), Solution),
     Dept \== development,
-    Lang \== 'c++'.    
+    Lang \== 'c++'.
+clue(3, Solution) :-
+    member(p(_, testing, Lang, _), Solution),
+    Lang == python.        
