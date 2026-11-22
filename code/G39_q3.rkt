@@ -75,3 +75,7 @@
   (newline)
   (display (postorder tree))
   (newline))
+
+(define (print-height-and-leaves tree)
+  (display (list (height tree) (leaf-count tree)))
+  (newline))
