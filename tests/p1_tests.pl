@@ -7,7 +7,7 @@
 % run_p1_tests prints a summary and then fails, so swipl reports a failed goal.
 % This file never calls halt/0 and uses no initialization directive.
 
-:- ensure_loaded('../code/G8_q1.pl').
+:- ensure_loaded('../code/G39_q1.pl').
 
 % ---------------------------------------------------------------------------
 % Test runner
