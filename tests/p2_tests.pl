@@ -1,5 +1,5 @@
 % Tests for P2 (G39_q2.pl). Definitions only: run from the command line with
-%   swipl -q code/G39_q2.pl tests/p2_tests.pl -g run_p2_tests -t halt
+%   swipl -q -g run_p2_tests -t halt code/G39_q2.pl tests/p2_tests.pl
 
 % p2_test(+Name, +Goal)
 % Declaratively: Goal is a check that must succeed for the P2 code to be correct.
