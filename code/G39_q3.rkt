@@ -67,3 +67,11 @@
 (define (print-inorder tree)
   (display (inorder tree))
   (newline))
+
+(define (print-all-traversals tree)
+  (display (inorder tree))
+  (newline)
+  (display (preorder tree))
+  (newline)
+  (display (postorder tree))
+  (newline))
