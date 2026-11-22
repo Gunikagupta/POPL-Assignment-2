@@ -43,3 +43,21 @@
     (if (< (my-length lst) n)
         (cons x processed)
         processed)))
+
+;; (make-inserter x len-ok?) -> (list -> list)
+;; Declaratively: a function that, given a list, processes every sublist
+;; (at any depth) the same way, then puts x at the front if (len-ok? original-length).
+;; An element is a list when it is a pair or '(); otherwise it is an atom and is kept.
+(define (make-inserter x len-ok?)
+  (letrec ((insert
+            (lambda (lst)
+              (let ((processed
+                     (my-map (lambda (e)
+                               (if (or (pair? e) (null? e))
+                                   (insert e)
+                                   e))
+                             lst)))
+                (if (len-ok? (my-length lst))
+                    (cons x processed)
+                    processed)))))
+    insert))
