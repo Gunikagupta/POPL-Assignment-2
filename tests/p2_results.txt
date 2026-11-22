@@ -1,0 +1,13 @@
+== forbidden-word check (expect nothing)
+== load check (expect nothing)
+== test suite (expect only exit code: 0)
+exit code: 0
+== spec example, grader style
+["4*2-5=3","4*2=5+3","4-2=5-3","4/2=5-3","4=2*(5-3)","4=2+(5-3)","4=2+5-3"]
+== first generated equation (expect 4=2+(5-3))
+4=2+(5-3)
+== counts (expect 7-0)
+7-0
+== timing on a longer list (just note it)
+529
+swipl -q -f code/G39_q2.pl -g  -t halt  0.04s user 0.01s system 93% cpu 0.051 total
