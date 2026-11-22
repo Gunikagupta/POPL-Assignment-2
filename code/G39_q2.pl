@@ -71,3 +71,51 @@ expr_val([A, B|T], e(Op, L, R), V) :-
     expr_val(Right, R, VR),
     arith_op(Op),
     apply_op(Op, VL, VR, V).
+
+% fmt(+Tree, -String)
+% Declaratively: String is the canonical SWI-Prolog string (no spaces) for
+% the expression tree Tree.
+% Base case: an integer leaf N is written in decimal, never in parentheses.
+% Recursive case: e(Op,L,R) is the string of L, then Op, then the string of
+% R, where each operand is wrapped in parentheses exactly when
+% needs_parens/3 says so.
+fmt(N, String) :-
+    integer(N),
+    format(string(String), "~d", [N]).
+fmt(e(Op, L, R), String) :-
+    prec(Op, P),
+    fmt_operand(L, left, P, LString),
+    fmt_operand(R, right, P, RString),
+    format(string(String), "~w~w~w", [LString, Op, RString]).
+
+% prec(+Op, -Precedence)
+% Declaratively: Op has binding strength Precedence (higher binds tighter).
+prec(+, 1).
+prec(-, 1).
+prec(*, 2).
+prec(/, 2).
+
+% fmt_operand(+Tree, +Side, +ParentPrec, -String)
+% Declaratively: String is the text of the operand Tree sitting on Side
+% (left or right) of a parent operator of precedence ParentPrec,
+% parenthesised exactly when needs_parens/3 holds.
+% (The if-then-else is a local choice between two outputs, not a cut.)
+fmt_operand(Tree, Side, ParentPrec, String) :-
+    fmt(Tree, Plain),
+    (   needs_parens(Tree, Side, ParentPrec)
+    ->  format(string(String), "(~w)", [Plain])
+    ;   String = Plain
+    ).
+
+% needs_parens(+Tree, +Side, +ParentPrec)
+% Declaratively: Tree needs parentheses as the Side operand of a parent
+% with precedence ParentPrec.
+% Left operand: only if its top operator binds looser than the parent.
+% Right operand: if its top operator binds equally or looser.
+% An integer leaf never needs parentheses (no clause matches it).
+needs_parens(e(Op, _, _), left, ParentPrec) :-
+    prec(Op, P),
+    P < ParentPrec.
+needs_parens(e(Op, _, _), right, ParentPrec) :-
+    prec(Op, P),
+    P =< ParentPrec.
