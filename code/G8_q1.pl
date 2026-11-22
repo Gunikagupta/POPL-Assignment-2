@@ -38,3 +38,7 @@ clue(7, Solution) :-
     member(p('Dana', Dept, Lang, _), Solution),
     Lang \== java,
     memberchk(Dept, [research, testing]).
+clue(8, Solution) :-
+    member(p(_, Dept, Lang, data), Solution),
+    Dept == research,
+    Lang \== javascript.    
